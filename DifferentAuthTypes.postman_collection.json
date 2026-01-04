@@ -1,0 +1,898 @@
+{
+	"info": {
+		"_postman_id": "a0f363e1-2f2b-41fb-814f-987f547edf4f",
+		"name": "DifferentAuthTypes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "50474002",
+		"_collection_link": "https://bhavik-694-8084043.postman.co/workspace/154ae349-376f-42dc-8788-231cc6ec329b/collection/50474002-a0f363e1-2f2b-41fb-814f-987f547edf4f?action=share&source=collection_link&creator=50474002"
+	},
+	"item": [
+		{
+			"name": "BasicAuth_Razorpay",
+			"item": [
+				{
+					"name": "CreateCustomer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var id =  pm.response.json().id;\r",
+									"console.log(\"id captured from response is : \"+id);\r",
+									"pm.collectionVariables.set(\"customer_id\",id);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{key_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{key_id}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"inisha patel\",\r\n    \"contact\": \"00000000000\",\r\n    \"email\": \"jinisha@patel.com\",\r\n    \"fail_existing\": \"0\",\r\n    \"notes\": {\r\n      \"notes_key_1\": \"Pizza\",\r\n      \"notes_key_2\": \"Burger.\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl_razorpay}}/customers",
+							"host": [
+								"{{baseurl_razorpay}}"
+							],
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EditCustomer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{key_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{key_id}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Urvashi parmar\",\r\n  \"email\": \"urvashi@parmar.com\",\r\n  \"contact\": \"1214542112\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl_razorpay}}/customers/{{customer_id}}",
+							"host": [
+								"{{baseurl_razorpay}}"
+							],
+							"path": [
+								"customers",
+								"{{customer_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FetchAllCustomers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{key_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{key_id}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Kaushal parmar\",\r\n  \"email\": \"Kaushal@parmar.com\",\r\n  \"contact\": \"11111111111\"\r\n}"
+						},
+						"url": {
+							"raw": "{{baseurl_razorpay}}/customers?count=2&skip=2",
+							"host": [
+								"{{baseurl_razorpay}}"
+							],
+							"path": [
+								"customers"
+							],
+							"query": [
+								{
+									"key": "count",
+									"value": "2"
+								},
+								{
+									"key": "skip",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FetchCustomerWithID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{key_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{key_id}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseurl_razorpay}}/customers/cust_RwNhl2siWlcT0P",
+							"host": [
+								"{{baseurl_razorpay}}"
+							],
+							"path": [
+								"customers",
+								"cust_RwNhl2siWlcT0P"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "OAuth2.0_SpotifyAPIs",
+			"item": [
+				{
+					"name": "AuthorizationCode",
+					"item": [
+						{
+							"name": "GetAllPlaylists",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.spotify.com/v1/users/31xkbjwzuldaoim6m4vpvd6extki/playlists",
+									"protocol": "https",
+									"host": [
+										"api",
+										"spotify",
+										"com"
+									],
+									"path": [
+										"v1",
+										"users",
+										"31xkbjwzuldaoim6m4vpvd6extki",
+										"playlists"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CreatePlaylist",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Bhavik New playlist 2\",\r\n    \"description\": \"Bhavik New playlist 2\",\r\n    \"public\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.spotify.com/v1/users/6txKjFFk18ZLf1YNk9sNt3/playlists",
+									"protocol": "https",
+									"host": [
+										"api",
+										"spotify",
+										"com"
+									],
+									"path": [
+										"v1",
+										"users",
+										"6txKjFFk18ZLf1YNk9sNt3",
+										"playlists"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "AddSongsToPlaylist",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"uris\": [\r\n        \"spotify:track:2si0ZNx4yRbggTvrIom8A2\", \"spotify:track:5XD2tP1DRH2NJgp45HiEQA\",\r\n        \"spotify:track:6fScgF2Y63ScU73nYju0ny\"\r\n    ],\r\n    \"position\": 0\r\n}   ",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.spotify.com/v1/playlists/6txKjFFk18ZLf1YNk9sNt3/tracks",
+									"protocol": "https",
+									"host": [
+										"api",
+										"spotify",
+										"com"
+									],
+									"path": [
+										"v1",
+										"playlists",
+										"6txKjFFk18ZLf1YNk9sNt3",
+										"tracks"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "RemoveSongsFromPlaylist",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tracks\": [\r\n        {\r\n            \"uri\": \"spotify:track:6fScgF2Y63ScU73nYju0ny\"\r\n        },\r\n        {\r\n            \"uri\": \"spotify:track:4FeiicaPWhZZusS1rddYdc\"\r\n        }\r\n    ]\r\n}    ",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.spotify.com/v1/playlists/6txKjFFk18ZLf1YNk9sNt3/tracks",
+									"protocol": "https",
+									"host": [
+										"api",
+										"spotify",
+										"com"
+									],
+									"path": [
+										"v1",
+										"playlists",
+										"6txKjFFk18ZLf1YNk9sNt3",
+										"tracks"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ChangePlaylistName",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Bhavik 00 playlist\",\r\n    \"description\": \"Bhavik 0 playlist\",\r\n    \"public\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.spotify.com/v1/playlists/6txKjFFk18ZLf1YNk9sNt3",
+									"protocol": "https",
+									"host": [
+										"api",
+										"spotify",
+										"com"
+									],
+									"path": [
+										"v1",
+										"playlists",
+										"6txKjFFk18ZLf1YNk9sNt3"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ClientCredentials",
+					"item": [
+						{
+							"name": "GetAllPlaylists",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://api.spotify.com/v1/users/31xkbjwzuldaoim6m4vpvd6extki/playlists",
+									"protocol": "https",
+									"host": [
+										"api",
+										"spotify",
+										"com"
+									],
+									"path": [
+										"v1",
+										"users",
+										"31xkbjwzuldaoim6m4vpvd6extki",
+										"playlists"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CreatePlaylist",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Bhavik New playlist 2\",\r\n    \"description\": \"Bhavik New playlist 2\",\r\n    \"public\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.spotify.com/v1/users/6txKjFFk18ZLf1YNk9sNt3/playlists",
+									"protocol": "https",
+									"host": [
+										"api",
+										"spotify",
+										"com"
+									],
+									"path": [
+										"v1",
+										"users",
+										"6txKjFFk18ZLf1YNk9sNt3",
+										"playlists"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "AddSongsToPlaylist",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"uris\": [\r\n        \"spotify:track:2si0ZNx4yRbggTvrIom8A2\", \"spotify:track:5XD2tP1DRH2NJgp45HiEQA\",\r\n        \"spotify:track:6fScgF2Y63ScU73nYju0ny\"\r\n    ],\r\n    \"position\": 0\r\n}   ",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.spotify.com/v1/playlists/6txKjFFk18ZLf1YNk9sNt3/tracks",
+									"protocol": "https",
+									"host": [
+										"api",
+										"spotify",
+										"com"
+									],
+									"path": [
+										"v1",
+										"playlists",
+										"6txKjFFk18ZLf1YNk9sNt3",
+										"tracks"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "RemoveSongsFromPlaylist",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tracks\": [\r\n        {\r\n            \"uri\": \"spotify:track:6fScgF2Y63ScU73nYju0ny\"\r\n        },\r\n        {\r\n            \"uri\": \"spotify:track:4FeiicaPWhZZusS1rddYdc\"\r\n        }\r\n    ]\r\n}    ",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.spotify.com/v1/playlists/6txKjFFk18ZLf1YNk9sNt3/tracks",
+									"protocol": "https",
+									"host": [
+										"api",
+										"spotify",
+										"com"
+									],
+									"path": [
+										"v1",
+										"playlists",
+										"6txKjFFk18ZLf1YNk9sNt3",
+										"tracks"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ChangePlaylistName",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Bhavik 00 playlist\",\r\n    \"description\": \"Bhavik 0 playlist\",\r\n    \"public\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.spotify.com/v1/playlists/6txKjFFk18ZLf1YNk9sNt3",
+									"protocol": "https",
+									"host": [
+										"api",
+										"spotify",
+										"com"
+									],
+									"path": [
+										"v1",
+										"playlists",
+										"6txKjFFk18ZLf1YNk9sNt3"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "DigestAuth_Herokuapp",
+			"item": [
+				{
+					"name": "Digest Auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "digest",
+							"digest": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "algorithm",
+									"value": "MD5",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://the-internet.herokuapp.com/digest_auth",
+							"protocol": "https",
+							"host": [
+								"the-internet",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"digest_auth"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "APIKey_OpenAI",
+			"item": [
+				{
+					"name": "GetAllModels",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer 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",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.openai.com/v1/models",
+							"protocol": "https",
+							"host": [
+								"api",
+								"openai",
+								"com"
+							],
+							"path": [
+								"v1",
+								"models"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateChatCompletion",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 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",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"model\": \"gpt-5.2\",\r\n    \"messages\": [\r\n      {\r\n        \"role\": \"developer\",\r\n        \"content\": \"You are a helpful assistant.\"\r\n      }\r\n    ]\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.openai.com/v1/chat/completions",
+							"protocol": "https",
+							"host": [
+								"api",
+								"openai",
+								"com"
+							],
+							"path": [
+								"v1",
+								"chat",
+								"completions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "JWT",
+			"item": [
+				{
+					"name": "GetJWTToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var token = pm.response.json().accessToken;\r",
+									"var refreshToken = pm.response.json().refreshToken;\r",
+									"\r",
+									"console.log(\"received JWT token locally : \"+token);\r",
+									"\r",
+									"pm.collectionVariables.set(\"JWTToken\",token);\r",
+									"pm.collectionVariables.set(\"JWTRefreshToken\",refreshToken);"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"emilys\",\r\n    \"password\": \"emilyspass\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://dummyjson.com/auth/login",
+							"protocol": "https",
+							"host": [
+								"dummyjson",
+								"com"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCurrentAuthUser",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWTToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://dummyjson.com/auth/me\n",
+							"protocol": "https",
+							"host": [
+								"dummyjson",
+								"com"
+							],
+							"path": [
+								"auth",
+								"me\n"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RefreshAuthSssion",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"refreshToken\": {{JWTRefreshToken}},\r\n  \"expiresInMins\": 30\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://dummyjson.com/auth/refresh",
+							"protocol": "https",
+							"host": [
+								"dummyjson",
+								"com"
+							],
+							"path": [
+								"auth",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseurl_razorpay",
+			"value": "https://api.razorpay.com/v1"
+		},
+		{
+			"key": "customer_id",
+			"value": ""
+		},
+		{
+			"key": "key_id",
+			"value": "rzp_test_RwNEzV7dHceJdN"
+		},
+		{
+			"key": "key_secret",
+			"value": "19yBPaKP4hVNdR5ZqpBz3Hd7"
+		},
+		{
+			"key": "JWTToken",
+			"value": ""
+		},
+		{
+			"key": "JWTRefreshToken",
+			"value": ""
+		}
+	]
+}
