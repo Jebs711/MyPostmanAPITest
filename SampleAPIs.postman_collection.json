@@ -145,7 +145,7 @@
 							"});\r",
 							"\r",
 							"pm.test(\"Verify field matches\", function () {\r",
-							"    pm.expect(pm.response.text()).to.include(\"Bhavik\");\r",
+							"    pm.expect(pm.response.json().name).to.eql(pm.iterationData.get(\"name\"));\r",
 							"});\r",
 							"\r",
 							"pm.test(\"Verify createdAt field is present\", function () {\r",
