@@ -1,0 +1,285 @@
+{
+	"info": {
+		"_postman_id": "d1d48a6d-6a67-4972-950e-6e67c03ea6cc",
+		"name": "BasicAuth_Razorpay",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "50474002",
+		"_collection_link": "https://bhavik-694-8084043.postman.co/workspace/Bhavik_Mukesh_API~154ae349-376f-42dc-8788-231cc6ec329b/collection/50474002-d1d48a6d-6a67-4972-950e-6e67c03ea6cc?action=share&source=collection_link&creator=50474002"
+	},
+	"item": [
+		{
+			"name": "CreateCustomer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var id =  pm.response.json().id;\r",
+							"console.log(\"id captured from response is : \"+id);\r",
+							"pm.collectionVariables.set(\"customer_id\",id);\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{key_secret}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{key_id}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"inisha patel\",\r\n    \"contact\": \"00000000000\",\r\n    \"email\": \"jinisha@patel.com\",\r\n    \"fail_existing\": \"0\",\r\n    \"notes\": {\r\n      \"notes_key_1\": \"Pizza\",\r\n      \"notes_key_2\": \"Burger.\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl_razorpay}}/customers",
+					"host": [
+						"{{baseurl_razorpay}}"
+					],
+					"path": [
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EditCustomer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{key_secret}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{key_id}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Urvashi parmar\",\r\n  \"email\": \"urvashi@parmar.com\",\r\n  \"contact\": \"1214542112\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl_razorpay}}/customers/{{customer_id}}",
+					"host": [
+						"{{baseurl_razorpay}}"
+					],
+					"path": [
+						"customers",
+						"{{customer_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FetchAllCustomers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{key_secret}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{key_id}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Kaushal parmar\",\r\n  \"email\": \"Kaushal@parmar.com\",\r\n  \"contact\": \"11111111111\"\r\n}"
+				},
+				"url": {
+					"raw": "{{baseurl_razorpay}}/customers?count=2&skip=2",
+					"host": [
+						"{{baseurl_razorpay}}"
+					],
+					"path": [
+						"customers"
+					],
+					"query": [
+						{
+							"key": "count",
+							"value": "2"
+						},
+						{
+							"key": "skip",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FetchCustomerWithID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{key_secret}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{key_id}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseurl_razorpay}}/customers/cust_RwNhl2siWlcT0P",
+					"host": [
+						"{{baseurl_razorpay}}"
+					],
+					"path": [
+						"customers",
+						"cust_RwNhl2siWlcT0P"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseurl_razorpay",
+			"value": "https://api.razorpay.com/v1"
+		},
+		{
+			"key": "key_secret",
+			"value": "19yBPaKP4hVNdR5ZqpBz3Hd7"
+		},
+		{
+			"key": "key_id",
+			"value": "rzp_test_RwNEzV7dHceJdN"
+		}
+	]
+}

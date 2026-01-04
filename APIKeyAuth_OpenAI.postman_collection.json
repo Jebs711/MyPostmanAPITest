@@ -1,0 +1,115 @@
+{
+	"info": {
+		"_postman_id": "17cf3780-07b6-4b0c-8f73-eade0f7aaf13",
+		"name": "APIKeyAuth_OpenAI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "50474002",
+		"_collection_link": "https://bhavik-694-8084043.postman.co/workspace/Bhavik_Mukesh_API~154ae349-376f-42dc-8788-231cc6ec329b/collection/50474002-17cf3780-07b6-4b0c-8f73-eade0f7aaf13?action=share&source=collection_link&creator=50474002"
+	},
+	"item": [
+		{
+			"name": "GetAllModels",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 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",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.openai.com/v1/models",
+					"protocol": "https",
+					"host": [
+						"api",
+						"openai",
+						"com"
+					],
+					"path": [
+						"v1",
+						"models"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateChatCompletion",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "key",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer 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",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"model\": \"gpt-5.2\",\r\n    \"messages\": [\r\n      {\r\n        \"role\": \"developer\",\r\n        \"content\": \"You are a helpful assistant.\"\r\n      }\r\n    ]\r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.openai.com/v1/chat/completions",
+					"protocol": "https",
+					"host": [
+						"api",
+						"openai",
+						"com"
+					],
+					"path": [
+						"v1",
+						"chat",
+						"completions"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

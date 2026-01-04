@@ -1,0 +1,66 @@
+{
+	"info": {
+		"_postman_id": "6f6bd77a-7409-4474-b943-41859bd803e6",
+		"name": "DigestAuth_Herokuapp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "50474002",
+		"_collection_link": "https://bhavik-694-8084043.postman.co/workspace/Bhavik_Mukesh_API~154ae349-376f-42dc-8788-231cc6ec329b/collection/50474002-6f6bd77a-7409-4474-b943-41859bd803e6?action=share&source=collection_link&creator=50474002"
+	},
+	"item": [
+		{
+			"name": "Digest Auth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "digest",
+					"digest": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "algorithm",
+							"value": "MD5",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://the-internet.herokuapp.com/digest_auth",
+					"protocol": "https",
+					"host": [
+						"the-internet",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"digest_auth"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

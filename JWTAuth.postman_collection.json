@@ -1,0 +1,148 @@
+{
+	"info": {
+		"_postman_id": "e26e9b18-e67f-42db-ab17-48d27cc24183",
+		"name": "JWTAuth",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "50474002",
+		"_collection_link": "https://bhavik-694-8084043.postman.co/workspace/Bhavik_Mukesh_API~154ae349-376f-42dc-8788-231cc6ec329b/collection/50474002-e26e9b18-e67f-42db-ab17-48d27cc24183?action=share&source=collection_link&creator=50474002"
+	},
+	"item": [
+		{
+			"name": "GetJWTToken",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var token = pm.response.json().accessToken;\r",
+							"var refreshToken = pm.response.json().refreshToken;\r",
+							"\r",
+							"console.log(\"received JWT token locally : \"+token);\r",
+							"\r",
+							"pm.collectionVariables.set(\"JWTToken\",token);\r",
+							"pm.collectionVariables.set(\"JWTRefreshToken\",refreshToken);\r",
+							"\r",
+							"pm.test(\"Verify Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"emilys\",\r\n    \"password\": \"emilyspass\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dummyjson.com/auth/login",
+					"protocol": "https",
+					"host": [
+						"dummyjson",
+						"com"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetCurrentAuthUser",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWTToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dummyjson.com/auth/me\n",
+					"protocol": "https",
+					"host": [
+						"dummyjson",
+						"com"
+					],
+					"path": [
+						"auth",
+						"me\n"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RefreshAuthSssion",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"refreshToken\": {{JWTRefreshToken}},\r\n  \"expiresInMins\": 30\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://dummyjson.com/auth/refresh",
+					"protocol": "https",
+					"host": [
+						"dummyjson",
+						"com"
+					],
+					"path": [
+						"auth",
+						"refresh"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "JWTToken",
+			"value": ""
+		},
+		{
+			"key": "JWTRefreshToken",
+			"value": ""
+		}
+	]
+}

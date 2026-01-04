@@ -1,0 +1,275 @@
+{
+	"info": {
+		"_postman_id": "e39fab86-5673-4eaa-9439-fb0d2ec0c0b6",
+		"name": "ProductAPIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "50474002",
+		"_collection_link": "https://bhavik-694-8084043.postman.co/workspace/Bhavik_Mukesh_API~154ae349-376f-42dc-8788-231cc6ec329b/collection/50474002-e39fab86-5673-4eaa-9439-fb0d2ec0c0b6?action=share&source=collection_link&creator=50474002"
+	},
+	"item": [
+		{
+			"name": "GetProductDetails",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    var name = \"postman\";\r",
+							"    console.log(\"name is \" + name);\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"response should contain product\", function () {\r",
+							"    console.log(\"name from different test is : \"+name);\r",
+							"    pm.expect(pm.response.text()).to.include(\"Apple MacBook Pro 16\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "qwe",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "asd",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/objects/7",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"objects",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddNewProduct",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var productid = pm.response.json().id;\r",
+							"console.log(\"product id is :  \"+productid);\r",
+							"pm.collectionVariables.set(\"pro_id\",productid);\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify CPU model\", function () {\r",
+							"    var CPUmodel = pm.response.json().data[\"CPU model\"];\r",
+							"    pm.expect(CPUmodel).to.eql(\"Postman\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{product}}\",\r\n    \"data\": {\r\n        \"year\": {{year}},\r\n        \"price\": {{price}},\r\n        \"CPU model\": \"{{ToolName}}\",\r\n        \"Hard disk size\": \"1 TB\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/objects",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"objects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateProduct",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Apple MacBook Pro 16 - 2026\",\r\n  \"data\": {\r\n    \"year\": 2024,\r\n    \"price\": 1900,\r\n    \"CPU model\": \"Intel Core i9\",\r\n    \"Hard disk size\": \"1 TB\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/objects/{{pro_id}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"objects",
+						"{{pro_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdatePartialProduct",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Apple MacBook Pro 16 (2025 Latest Edition)\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/objects/{{pro_id}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"objects",
+						"{{pro_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteProduct",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/objects/{{pro_id}}",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"objects",
+						"{{pro_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "pro_id",
+			"value": "ff8081819782e69e019b892eda833df2"
+		},
+		{
+			"key": "product",
+			"value": "Apple 16 Pro Max"
+		},
+		{
+			"key": "year",
+			"value": "2024"
+		},
+		{
+			"key": "price",
+			"value": "150000"
+		}
+	]
+}

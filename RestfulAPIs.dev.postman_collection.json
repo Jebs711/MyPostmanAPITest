@@ -1,0 +1,265 @@
+{
+	"info": {
+		"_postman_id": "4174aef2-c7bc-4283-9317-e4734186d971",
+		"name": "RestfulAPIs.dev",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "50474002",
+		"_collection_link": "https://bhavik-694-8084043.postman.co/workspace/Bhavik_Mukesh_API~154ae349-376f-42dc-8788-231cc6ec329b/collection/50474002-4174aef2-c7bc-4283-9317-e4734186d971?action=share&source=collection_link&creator=50474002"
+	},
+	"item": [
+		{
+			"name": "GetObjectDetails",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify Response contains String\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Apple MacBook Pro 16\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is below 2000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.restful-api.dev/objects/7",
+					"protocol": "https",
+					"host": [
+						"api",
+						"restful-api",
+						"dev"
+					],
+					"path": [
+						"objects",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateObject",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify Response Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});     \r",
+							"\r",
+							"pm.test(\"Verify Response contains string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 2000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});\r",
+							"\r",
+							"var jsonData  = pm.response.json();\r",
+							"pm.environment.set(\"productId\", jsonData.id);"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"name\": \"Apple MacBook Pro 16\",\r\n   \"data\": {\r\n      \"year\": 2019,\r\n      \"price\": 1849.99,\r\n      \"CPU model\": \"Intel Core i9\",\r\n      \"Hard disk size\": \"1 TB\"\r\n   }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.restful-api.dev/objects",
+					"protocol": "https",
+					"host": [
+						"api",
+						"restful-api",
+						"dev"
+					],
+					"path": [
+						"objects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateObjectDetails",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify Response Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify response prnce contains value 1900\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.price).to.eql(1900);\r",
+							"}); \r",
+							"\r",
+							"pm.test(\"Verify Response time is below 2000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Apple MacBook Pro 16\",\r\n  \"data\": {\r\n    \"year\": 2024,\r\n    \"price\": 1900,\r\n    \"CPU model\": \"Intel Core i9\",\r\n    \"Hard disk size\": \"1 TB\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.restful-api.dev/objects/{{productId}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"restful-api",
+						"dev"
+					],
+					"path": [
+						"objects",
+						"{{productId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateObjectName",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify Response Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify response name contains value Apple MacBook Pro 16 (2025 Latest Edition)\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.eql(\"Apple MacBook Pro 16 (2025 Latest Edition)\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify Response time is below 2000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Apple MacBook Pro 16 (2025 Latest Edition)\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.restful-api.dev/objects/{{productId}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"restful-api",
+						"dev"
+					],
+					"path": [
+						"objects",
+						"{{productId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteObject",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify Response Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify Response contains string deleted\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"deleted\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify Response time is less than 2000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://api.restful-api.dev/objects/{{productId}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"restful-api",
+						"dev"
+					],
+					"path": [
+						"objects",
+						"{{productId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

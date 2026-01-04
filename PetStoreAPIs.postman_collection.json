@@ -1,0 +1,271 @@
+{
+	"info": {
+		"_postman_id": "44b97011-5a13-4cb3-8db3-b31844947857",
+		"name": "PetStoreAPIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "50474002",
+		"_collection_link": "https://bhavik-694-8084043.postman.co/workspace/Bhavik_Mukesh_API~154ae349-376f-42dc-8788-231cc6ec329b/collection/50474002-44b97011-5a13-4cb3-8db3-b31844947857?action=share&source=collection_link&creator=50474002"
+	},
+	"item": [
+		{
+			"name": "GetPetByID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"packages": {},
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurlPetStore}}/pet/{{pet_id}}",
+					"host": [
+						"{{baseurlPetStore}}"
+					],
+					"path": [
+						"pet",
+						"{{pet_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddPet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var petid = pm.response.json().id;\r",
+							"\r",
+							"console.log(\"pet id is stored locally from response is : \"+petid);\r",
+							"\r",
+							"pm.collectionVariables.set(\"pet_id\",petid);\r",
+							"\r",
+							"pm.test(\"Verify Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var id = Math.floor(Math.random()*100);\r",
+							"\r",
+							"console.log(\"pet id captured locally \"+id);\r",
+							"\r",
+							"pm.variables.set(\"petidstored\",id);"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": {{petidstored}},\r\n    \"category\": {\r\n        \"id\": {{petidstored}},\r\n        \"name\": \"stray\"\r\n    },\r\n    \"name\": \"doggie\",\r\n    \"photoUrls\": [  \r\n        \"https://www.pexels.com/search/dog/\"\r\n    ],\r\n    \"tags\": [\r\n        {\r\n            \"id\": {{petidstored}},\r\n            \"name\": \"string\"\r\n        }\r\n    ],\r\n    \"status\": \"available\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurlPetStore}}/pet",
+					"host": [
+						"{{baseurlPetStore}}"
+					],
+					"path": [
+						"pet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdatePet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : {{pet_id}},\r\n    \"category\": {\r\n        \"id\": {{pet_id}},\r\n        \"name\": \"Tomie\"\r\n    },\r\n    \"name\": \"kalu\",\r\n    \"photoUrls\": [\r\n        \"https://www.pexels.com/search/dog/\"\r\n    ],\r\n    \"tags\": [\r\n        {\r\n            \"id\": {{pet_id}},\r\n            \"name\": \"string\"\r\n        }\r\n    ],\r\n    \"status\": \"Not Available\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurlPetStore}}/pet",
+					"host": [
+						"{{baseurlPetStore}}"
+					],
+					"path": [
+						"pet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddPetImage",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "additionalMetadata",
+							"value": "sample image",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "My Image",
+							"type": "text"
+						},
+						{
+							"key": "userId",
+							"value": "2568",
+							"type": "text"
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/acer/Downloads/WhatsApp Image 2025-10-13 at 4.16.48 PM.jpeg"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseurlPetStore}}/pet/{{pet_id}}/uploadImage",
+					"host": [
+						"{{baseurlPetStore}}"
+					],
+					"path": [
+						"pet",
+						"{{pet_id}}",
+						"uploadImage"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeletePetByID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "api_key",
+						"value": "special-key",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseurlPetStore}}/pet/{{pet_id}}",
+					"host": [
+						"{{baseurlPetStore}}"
+					],
+					"path": [
+						"pet",
+						"{{pet_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "pet_id",
+			"value": ""
+		}
+	]
+}
