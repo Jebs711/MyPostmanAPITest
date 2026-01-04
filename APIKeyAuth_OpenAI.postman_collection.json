@@ -29,7 +29,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer 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",
+						"value": "Bearer {{api_key}}",
 						"type": "text"
 					}
 				],
