@@ -13,8 +13,7 @@ newman run SampleAPIs.postman_collection.json ^
 --reporter-htmlextra-browserTitle "API Test Report" ^
 --reporter-htmlextra-title "Sample APIs Test Result" ^
 --reporter-htmlextra-titleSize 3 ^
---reporter-htmlextra-logs ^
---suppress-exit-code
+--reporter-htmlextra-logs
 
 
 REM Get timestamp using PowerShell (no WMIC, no delayed expansion)
@@ -29,5 +28,4 @@ newman run SampleAPIs.postman_collection.json ^
 --reporter-htmlextra-browserTitle "API Test Report" ^
 --reporter-htmlextra-title "Sample APIs Test Result" ^
 --reporter-htmlextra-titleSize 3 ^
---reporter-htmlextra-logs ^
---suppress-exit-code
+--reporter-htmlextra-logs
