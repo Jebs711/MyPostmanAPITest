@@ -1,9 +1,8 @@
 @echo off
 setlocal EnableDelayedExpansion
 
-REM Get timestamp
-for /f "tokens=2 delims==" %%I in ('wmic os get localdatetime /value') do set dt=%%I
-set ts=!dt:~0,8!_!dt:~8,6!
+REM Get timestamp using PowerShell (WMIC-free)
+for /f %%i in ('powershell -command "Get-Date -Format yyyyMMdd_HHmmss"') do set ts=%%i
 
 echo Running Newman with timestamp: !ts!
 
