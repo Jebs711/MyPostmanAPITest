@@ -7,7 +7,7 @@ for /f %%i in ('powershell -command "Get-Date -Format yyyyMMdd_HHmmss_fff"') do 
 echo Running Newman with timestamp: %ts%
 
 REM Run Newman
-newman run SampleAPIs.postman_collection.json ^
+call newman run SampleAPIs.postman_collection.json ^
 -d BulkUser_DataDrivenTest.csv -n 2 -r htmlextra ^
 --reporter-htmlextra-export "C:\Users\Public\Documents\API_Results\SampleAPIs\SampleAPI_Report_CSV_%ts%.html" ^
 --reporter-htmlextra-browserTitle "API Test Report" ^
@@ -22,7 +22,7 @@ for /f %%i in ('powershell -command "Get-Date -Format yyyyMMdd_HHmmss_fff"') do 
 echo Running Newman with timestamp: %ts%
 
 REM Run Newman
-newman run SampleAPIs.postman_collection.json ^
+call newman run SampleAPIs.postman_collection.json ^
 -d BulkUser_DataDrivenTest.json -n 2 -r htmlextra ^
 --reporter-htmlextra-export "C:\Users\Public\Documents\API_Results\SampleAPIs\SampleAPI_Report_JSON_%ts%.html" ^
 --reporter-htmlextra-browserTitle "API Test Report" ^
