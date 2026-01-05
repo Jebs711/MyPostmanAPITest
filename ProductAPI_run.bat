@@ -7,7 +7,7 @@ for /f %%i in ('powershell -command "Get-Date -Format yyyyMMdd_HHmmss"') do set 
 echo Running Newman with timestamp: %ts%
 
 REM Run Newman
-newman run ProductAPIs.postman_collection.json -e QA.postman_environment.json -r htmlextra ^
+newman run ProductAPIs.postman_collection.json -e QA.postman_environment.json -r htmlextra -g workspace.postman_globals ^
 --reporter-htmlextra-export "C:\Users\Public\Documents\API_Results\ProductDetailsAPIs\ProdcutDetailAPI_Report_%ts%.html" ^
 --reporter-htmlextra-browserTitle "API Test Report" ^
 --reporter-htmlextra-title "ProductDetailsAPI Test Result" ^
