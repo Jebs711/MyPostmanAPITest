@@ -6,8 +6,6 @@ for /f %%i in ('powershell -command "Get-Date -Format yyyyMMdd_HHmmss"') do set 
 
 echo Running Newman with timestamp: %ts%
 
-if not exist "C:\Users\Public\Documents\API_Results\SwaggerPetStoreAPIs" mkdir "C:\Users\Public\Documents\API_Results\SwaggerPetStoreAPIs"
-
 REM Run Newman
 newman run PetStoreAPIs.postman_collection.json -r htmlextra ^
 --reporter-htmlextra-export "C:\Users\Public\Documents\API_Results\SwaggerPetStoreAPIs\PetStore_API_Report_%ts%.html" ^
